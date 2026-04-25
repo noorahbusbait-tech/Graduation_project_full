@@ -10,12 +10,34 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split, TimeSeriesSplit, GridSearchCV
 
-# 1. Create directory for results
-if not os.path.exists('outputs'):
-    os.makedirs('outputs')
+import mysql.connector
+import pandas as pd
+import os
 
-# 2. Load Data
-df = pd.read_csv('cleandata.csv')
+# 1. Create directory for results (Local Path)
+# Since you're using XAMPP, it's best to point this directly to htdocs
+output_dir = 'C:/xampp/htdocs/hospital_project/outputs'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# 2. Load Data from MySQL
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="myproject1"
+)
+
+# Replace 'patients' with your actual table name if different
+# Ensure the column names match exactly what you have in PHPMyAdmin
+query = "SELECT `Adm. Date/Time`, `LOS`, `DSC Time Clean` FROM patients"
+
+df = pd.read_sql(query, db)
+db.close()
+
+print("Data successfully loaded from MySQL 'patients' table.")
+
+
 
 # 3. Data Prep
 df['Adm_Date'] = pd.to_datetime(df['Adm. Date/Time']).dt.date
