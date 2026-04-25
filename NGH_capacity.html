@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments</title>
+    <link rel="stylesheet" href="NGH_main.css">
+</head>
+<body>
+
+<div class="dash-header">
+    <div class="header-left">
+        <img src="logo.png" class="dash-logo" alt="Logo">
+        <div>
+            <h2>National Guard Hospital</h2>
+            <p>Department Capacity & Load Management</p>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <button class="btn btn-light" onclick="location.href='NGH_dashboard.html'">Dashboard</button>
+        <button class="btn btn-light active" onclick="location.href='NGH_capacity.html'">Department</button>
+        <button class="btn btn-light" onclick="location.href='future.html'">Future Forecast</button>
+        <button class="btn btn-danger" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="cards">
+        <div class="card"><h3>Total Departments</h3><p id="totalDept">0</p></div>
+        <div class="card"><h3>Total Beds</h3><p id="totalBeds">0</p></div>
+        <div class="card"><h3>Total Available</h3><p id="totalAvailable">0</p></div>
+        <div class="card"><h3>Critical Departments</h3><p id="criticalCount">0</p></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="panel">
+            <div class="top-toolbar">
+                <div class="left">
+                    <h3 style="margin:0;">Department Overview</h3>
+                </div>
+            </div>
+
+            <table class="dept-table">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Total</th>
+                        <th>Occupied</th>
+                        <th>Available</th>
+                        <th>Occupancy</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="deptTable"></tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <h3>Transfer Patient</h3>
+
+            <label>Patient MRN</label>
+            <input type="text" id="transferMrn" class="input-compact" placeholder="Enter admitted patient MRN">
+
+            <label style="margin-top:14px;">Target Department</label>
+            <select id="targetDept" class="input-compact">
+                <option value="">Select target department</option>
+            </select>
+
+            <div class="selected-box">
+                <strong>Selected Department:</strong>
+                <div id="selectedDept">None</div>
+            </div>
+
+            <button class="btn btn-primary" onclick="transferPatient()">Transfer</button>
+            <p id="transferMsg" class="msg"></p>
+
+            <div style="margin-top:22px;">
+                <h3 style="margin-bottom:10px;">Suggested Departments</h3>
+                <div id="recommendList" class="rec-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 NGH Hospital System
+</div>
+
+
+<script src="NGH_capacity.js"></script>
+</body>
+</html>
